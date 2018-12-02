@@ -57,12 +57,10 @@ export class StudentDataService{
 
   getBannerData(year){
     if(year){
-      console.log("setting year detail banner");
       this.bannerTitle=`${year} Student GPA`;
       this.bannerSubtitle="";
     }
     else{
-      console.log("setting yearly overview banner");
       this.bannerTitle="Yearly Overview of GPA";
       this.bannerSubtitle="In order to view student GPA for a given year,please click on the year in the table below.";
 

@@ -18,7 +18,6 @@ export class YearlyDataService{
 
   getYearlyData(allStudents: any){
         this.allStudents=allStudents;
-        console.log(this.allStudents);
         this.setStudents();
         this.setGPA();
         return this.studentYearlyOverview;
@@ -70,7 +69,6 @@ export class YearlyDataService{
       for(let i=0;i<decimalPlaces;i++){
         number=number*10;
       }
-      console.log(number)
       let gpaRound=Math.round(numberToRound * 100) / 100;
       //this.gpaString=parseFloat(gpaRound).toString();
       this.gpaString=String(gpaRound);

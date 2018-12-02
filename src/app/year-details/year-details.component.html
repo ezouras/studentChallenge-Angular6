@@ -1,14 +1,14 @@
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">GPA</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let student of students">
-      <td>{{student.name}}</td>
-      <td>{{student.gpa}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container" id="pageTable">
+  <div class="row header" id="mainTable">
+    <div class="col-4">
+      Student
+    </div>
+    <div class="col-4">
+      GPA
+    </div>
+  </div>
+  <div class="row" *ngFor="let student of students">
+      <div class="col-4">{{student.name}}</div>
+      <div class="col-4">{{student.gpa}}</div>
+  </div>
+</div>
