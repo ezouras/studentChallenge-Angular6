@@ -1,14 +1,15 @@
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Year</th>
-      <th scope="col">GPA Average</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let obj of yearlyData">
-      <td (click)="getYearDetails(year)" #year>{{obj.year}}</td>
-      <td>{{obj.gpa}}</td>
-    </tr>
-  </tbody>
-</table>
+<p *ngIf="waiting">
+  Retrieving Data...
+</p>
+<div *ngIf="!waiting" class="container" id="pageTable">
+  <div class="row header">
+      <div class="col-sm row data-row">Year</div>
+      <div class="col-sm row">Total Students</div>
+      <div class="col-sm row">GPA Average</div>
+  </div>
+  <div  class="row data" *ngFor="let obj of yearlyData">
+      <div class="col-sm row data-row clickYear"  (click)="getYearDetails(year)" #year>{{obj.year}}</div>
+      <div  class="col-sm row data-row">{{obj.students.length}}</div>
+      <div  class="col-sm row data-row">{{obj.gpa}}</div>
+  </div>
+</div>

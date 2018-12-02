@@ -7,31 +7,32 @@ import {Subject} from 'rxjs';
 
 export class StudentDataService{
   private studentJSONData;
-  private yearlyData;
+  private yearlyStudentData;
   private dataReceived=false;
-  private year="1081"
   private bannerTitle;
-  private bannerSubTitle;
+  private bannerSubtitle;
   private studentsUpdated = new Subject<any>();
-  private students;
+  bannerUpdated = new Subject<any>();
+  private studentNameAndGPA;
 
   constructor(private http:Http,private yearlyDataService: YearlyDataService,){}
 
   getStudentUpdateListener(){
-  //use the same subject. if your dealing with posts - use the new subject created
-  //here everytien.
   return this.studentsUpdated.asObservable();
-}
-    getStudentData(){
+  }
+
+  getBannerUpdateListener(){
+    return this.bannerUpdated.asObservable();
+  }
+
+  getStudentData(){
       if(!this.dataReceived){
       this.http.get('http://apitest.sertifi.net/api/Students').subscribe(
           (response: Response)=>{
             this.studentJSONData=response.json();
-            this.yearlyData=this.yearlyDataService.getYearlyData(this.studentJSONData);
-            this.studentsUpdated.next(this.yearlyData);
+            this.yearlyStudentData=this.yearlyDataService.getYearlyData(this.studentJSONData);
+            this.studentsUpdated.next(this.yearlyStudentData);
             this.dataReceived=true;
-            this.setBannerData(true);
-
           },
           (error)=>{
             console.log(error);
@@ -39,36 +40,34 @@ export class StudentDataService{
       )}
     }
 
-  setStudentNameAndGPA(students){
-    this.students=students;
-  }
 
-  getStudentNameAndGPA(){
-    return this.students;
-  }
-
-
-
-  getBannerData(){
-    return {title:this.bannerTitle,subtitle:this.bannerSubTitle};
-
-  }
-
-
-  setBannerData(isOverview){
-    switch(isOverview) {
-        case true: {
-          console.log("setting yearly overview banner");
-          this.bannerTitle="Average GPA By Year";
-          this.bannerSubTitle="Click on a year to get student GPA";
-          break;
+    setStudentNameAndGPA(year){
+      for(let yearObj of this.yearlyStudentData){
+        if(yearObj.year==year){
+          this.studentNameAndGPA=yearObj.students;
         }
-    default: {
-        console.log("setting year detail banner");
-        this.bannerTitle=`${this.year} Student GPA`;
-        this.bannerSubTitle="Click on a year to get student GPA";
-      break;
-   }
- }}
+      }
+    }
+
+    getStudentNameAndGPA(){
+      return this.studentNameAndGPA;
+    }
+
+
+
+  getBannerData(year){
+    if(year){
+      console.log("setting year detail banner");
+      this.bannerTitle=`${year} Student GPA`;
+      this.bannerSubtitle="";
+    }
+    else{
+      console.log("setting yearly overview banner");
+      this.bannerTitle="Yearly Overview of GPA";
+      this.bannerSubtitle="In order to view student GPA for a given year,please click on the year in the table below.";
+
+    }
+    return {title:this.bannerTitle,subtitle:this.bannerSubtitle};
+  }
 
 }

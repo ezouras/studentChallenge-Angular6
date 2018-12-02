@@ -7,18 +7,20 @@ import {StudentDataService } from '../student-services/studentdata.service';
   styleUrls: ['./table-banner.component.css']
 })
 export class TableBannerComponent implements OnInit {
-  title="I work!";
-  subtitle;
+  title="Yearly Overview of GPA";
+  subtitle="In order to view student GPA for a given year,please click on the year in the table below.";
 
-  constructor(private studentDataService: StudentDataService) {
-
-
-  }
+  constructor(private studentDataService: StudentDataService) {}
 
   ngOnInit() {
-
-    this.title=this.studentDataService.getBannerData().title;
-    this.subtitle=this.studentDataService.getBannerData().subtitle;
+    this.studentDataService.getBannerUpdateListener()
+    .subscribe((data:any)=>{
+      this.title=data.title;
+      this.subtitle=data.subtitle;
+    });
   }
+
+
+
 
 }

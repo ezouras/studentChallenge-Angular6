@@ -19,6 +19,8 @@ export class YearDetailsComponent implements OnInit {
   ngOnInit() {
    this.year=this.currentRoute.snapshot.queryParams["year"];
    this.students=this.studentDataService.getStudentNameAndGPA();
+   this.studentDataService.setStudentNameAndGPA(this.year);
+   this.students=this.studentDataService.getStudentNameAndGPA();
 
    }
 

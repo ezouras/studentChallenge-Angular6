@@ -12,7 +12,8 @@ import {Router} from '@angular/router';
 export class YearlySummaryComponent implements OnInit {
   //private studentDataSub:Subscription;
 
-  private yearlyData;
+  private yearlyData:any=new Array();
+  private waiting:boolean =true;
 
   constructor(private studentDataService: StudentDataService,
     private router: Router) {
@@ -20,10 +21,10 @@ export class YearlySummaryComponent implements OnInit {
    }
 
   ngOnInit() {
-      console.log("in ngInit");
       this.studentDataService.getStudentUpdateListener()
       .subscribe((data:any)=>{
         this.yearlyData=data;
+        this.waiting=false;
       });
     }
 
@@ -40,8 +41,7 @@ export class YearlySummaryComponent implements OnInit {
       }
     }
     this.studentDataService.setStudentNameAndGPA(students)
+    this.studentDataService.bannerUpdated.next(this.studentDataService.getBannerData(year));
     this.router.navigate(['/details'],{queryParams:{year:year}});
-  }
-
-
+ }
 }

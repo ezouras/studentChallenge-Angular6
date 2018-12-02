@@ -1,6 +1,78 @@
 @import './_vars';
 
 body{
-  background: @font-color;
-  color: @background-color;
+  color: @font-color;
+  background-color: @background-color;
+}
+main{
+  margin-top:0;
+}
+.jumbotron{
+  color: @font-color;
+  background-color: @background-color;
+  margin:0;
+}
+
+.row{
+  margin-bottom: .25rem;
+}
+.data-row{
+  margin-left:.5rem;
+}
+.row:hover{
+  background-color: #719AC2;
+  color:white;
+  font-weight: bold;
+}
+
+.header{
+  background-color: #395067;
+  border:1px solid #DCECF7;
+}
+.container{
+  color:#DCECF7;
+  background:#2c3e50;
+  margin-bottom: 1rem;
+}
+#pageTable{
+      border: 1px solid grey;
+}
+.clickYear{
+  cursor: pointer;
+
+}
+
+
+@media only screen and (max-device-width : 640px) {
+  body{
+    font-size: 2rem;
+  }
+  .title{
+    font-size: 4.25rem;
+    margin-bottom:6rem;
+  }
+  .container{
+    font-size: 3.25rem;
+    margin-bottom: 6rem;
+  }
+
+
+/* Styles */
+}
+
+@media only screen and (max-device-width: 768px) {
+  body{
+    font-size: 2rem;
+  }
+  .title{
+    font-size: 4.25rem;
+    margin-bottom:6rem;
+  }
+
+  .container{
+    font-size: 3.25rem;
+    margin-bottom: 6rem;
+  }
+
+/* Styles */
 }
