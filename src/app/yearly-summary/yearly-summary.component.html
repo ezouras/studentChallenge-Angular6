@@ -6,9 +6,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let student of studentData">
-      <td>{{student.Name}}  </td>
-      <td (click)="getYearDetails(year)" #year>{{student.StartYear}}</td>
+    <tr *ngFor="let obj of yearlyData">
+      <td (click)="getYearDetails(year)" #year>{{obj.year}}</td>
+      <td>{{obj.gpa}}</td>
     </tr>
   </tbody>
 </table>

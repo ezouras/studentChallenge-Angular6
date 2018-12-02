@@ -28,6 +28,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
+
   providers: [
     StudentDataService,
     YearlyDataService

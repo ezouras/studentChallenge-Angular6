@@ -10,16 +10,15 @@ import {ActivatedRoute} from '@angular/router';
 export class YearDetailsComponent implements OnInit {
   year;
   detailData;
+  students;
 
   constructor(//private router:Router,
               private studentDataService: StudentDataService,
               private currentRoute:ActivatedRoute,) { }
 
   ngOnInit() {
-
    this.year=this.currentRoute.snapshot.queryParams["year"];
-   //this.detailData=this.studentDataService.getYearDetails();
-   console.log("in details",this.detailData);
+   this.students=this.studentDataService.getStudentNameAndGPA();
 
    }
 

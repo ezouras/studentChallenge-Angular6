@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {StudentDataService } from '../student-services/studentdata.service';
 import {Router} from '@angular/router';
-import{Subscription} from "rxjs";
+//import{Subscription} from "rxjs";
 //import { Response } from '@angular/http';
 
 @Component({
@@ -10,47 +10,38 @@ import{Subscription} from "rxjs";
   styleUrls: ['./yearly-summary.component.less']
 })
 export class YearlySummaryComponent implements OnInit {
-  private studentDataSub:Subscription;
-  private studentData;
+  //private studentDataSub:Subscription;
+
+  private yearlyData;
 
   constructor(private studentDataService: StudentDataService,
     private router: Router) {
-    console.log("in constructor");
     this.studentDataService.getStudentData();
    }
 
   ngOnInit() {
       console.log("in ngInit");
-      this.studentDataSub=this.studentDataService.getStudentUpdateListener()
+      this.studentDataService.getStudentUpdateListener()
       .subscribe((data:any)=>{
-        //unction that gets claled when data is received.
-        this.studentData=data;
-        console.log("in yearly summary ",this.studentData);
+        this.yearlyData=data;
       });
     }
 
-  getYearDetails(year){
+
+  //Location.reload(true);
+
+  getYearDetails(yearHTML){
     //set email using params
-    this.router.navigate(['/details'],{queryParams:{year:year.textContent}});
-  }
-
-  studentsLocal=[
-    {
-        "Id": 1,
-        "Name": "Jack-local",
-        "StartYear": 2013,
-        "EndYear": 2016,
-        "GPARecord": [3.4,2.1,1.2,3.6]
-    },
-    {
-      "Id": 2,
-      "Name": "Jill-local",
-      "StartYear": 2010,
-      "EndYear": 2013,
-      "GPARecord": [3.3,2.3,1.1,3.7]
+    let students;
+    let year=parseInt(yearHTML.textContent);
+    for(let yearObj of this.yearlyData){
+      if(yearObj.year==year){
+        students=yearObj.students;
+      }
     }
-];
-
+    this.studentDataService.setStudentNameAndGPA(students)
+    this.router.navigate(['/details'],{queryParams:{year:year}});
+  }
 
 
 }

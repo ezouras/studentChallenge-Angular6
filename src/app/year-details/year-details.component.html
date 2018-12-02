@@ -1,3 +1,14 @@
-<p>
-  {{year}} details
-</p>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">GPA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of students">
+      <td>{{student.name}}</td>
+      <td>{{student.gpa}}</td>
+    </tr>
+  </tbody>
+</table>

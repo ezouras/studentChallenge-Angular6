@@ -13,6 +13,7 @@ export class StudentDataService{
   private bannerTitle;
   private bannerSubTitle;
   private studentsUpdated = new Subject<any>();
+  private students;
 
   constructor(private http:Http,private yearlyDataService: YearlyDataService,){}
 
@@ -26,10 +27,8 @@ export class StudentDataService{
       this.http.get('http://apitest.sertifi.net/api/Students').subscribe(
           (response: Response)=>{
             this.studentJSONData=response.json();
-            //console.log(this.studentJSONData);
             this.yearlyData=this.yearlyDataService.getYearlyData(this.studentJSONData);
-            console.log(this.yearlyData);
-            //this.studentsUpdated.next(this.studentData);
+            this.studentsUpdated.next(this.yearlyData);
             this.dataReceived=true;
             this.setBannerData(true);
 
@@ -39,6 +38,14 @@ export class StudentDataService{
           }
       )}
     }
+
+  setStudentNameAndGPA(students){
+    this.students=students;
+  }
+
+  getStudentNameAndGPA(){
+    return this.students;
+  }
 
 
 
