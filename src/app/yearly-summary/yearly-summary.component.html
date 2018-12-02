@@ -1,0 +1,14 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Year</th>
+      <th scope="col">GPA Average</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of studentData">
+      <td>{{student.Name}}  </td>
+      <td (click)="getYearDetails(year)" #year>{{student.StartYear}}</td>
+    </tr>
+  </tbody>
+</table>
